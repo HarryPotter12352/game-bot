@@ -1,14 +1,15 @@
-import sqlite3
+import aiosqlite
 
 
-def create_prefix_db():
-    conn = sqlite3.connect("data/prefix.db")
-    c = conn.cursor()
-    with conn:
+async def create_prefix_db():
+    conn = await aiosqlite.connect("data.db")
+    async with conn.cursor() as c:
         try:
-            c.execute("""CREATE TABLE prefix_data (
+            await c.execute("""CREATE TABLE prefix_data (
                 guild_id integer,
                 prefix string
-            )""") 
+            )""")
+            print("Created prefix database as it does not exist")
         except:
-            print('Prefix database already exists, aborted creation job') 
+            print("Prefix database already exists, aborted creation job")
+    return conn
