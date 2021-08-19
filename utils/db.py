@@ -1,5 +1,6 @@
 import aiosqlite
 
+__all__ = ("create_prefix_db",)
 
 async def create_prefix_db():
     conn = await aiosqlite.connect("data.db")

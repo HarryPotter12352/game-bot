@@ -1,12 +1,15 @@
 import configparser
 import discord
 from discord.ext import commands
-from utils.create_db import create_prefix_db
+from utils import create_prefix_db
 
 
 bot = commands.Bot(command_prefix="./", owner_ids={737540230957105254, 852788943229288449})
 bot.db = bot.loop.run_until_complete(create_prefix_db())
+
 bot.load_extension("jishaku")
+for cog in ("info",):
+    bot.load_extension(f"cogs.{cog}")
 
 
 config = configparser.ConfigParser()
